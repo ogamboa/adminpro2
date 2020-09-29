@@ -8,33 +8,38 @@ export class SettingsService {
   private linkTheme = document.querySelector('#theme');
 
   constructor() {
-
-    const url = localStorage.getItem('theme') || './assets/css/colors/red.css';
+    
+    const url = localStorage.getItem('theme') || './assets/css/colors/purple-dark.css';
     this.linkTheme.setAttribute('href', url);
+
   }
 
-  changeTheme (theme: string) {
-    const url = `./assets/css/colors/${theme}.css`;
+  changeTheme( theme: string ) {
+  
+    const url = `./assets/css/colors/${ theme }.css`;
+    this.linkTheme.setAttribute('href', url);
+    localStorage.setItem('theme', url );
 
-    this.linkTheme.setAttribute('href',url);
-    localStorage.setItem('theme',url);
     this.checkCurrentTheme();
   }
 
-  checkCurrentTheme(){
+  checkCurrentTheme() {
 
     const links = document.querySelectorAll('.selector');
 
-    links.forEach( element => {
-      element.classList.remove('working');
+    links.forEach( elem => {
 
-      const btnTheme = element.getAttribute('data-theme');
-      const btnThemeUrl = `./assets/css/colors/${btnTheme}.css`;
+      elem.classList.remove('working');
+      const btnTheme = elem.getAttribute('data-theme');
+      const btnThemeUrl = `./assets/css/colors/${ btnTheme }.css`;
       const currentTheme = this.linkTheme.getAttribute('href');
 
-      if (btnThemeUrl === currentTheme){
-        element.classList.add('working');
+      if ( btnThemeUrl === currentTheme ) {
+        elem.classList.add('working');
       }
-    })
+
+    });
+
   }
+
 }
